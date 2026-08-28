@@ -1,0 +1,62 @@
+{
+  "$schema": "https://developers.reddit.com/schema/config-file.v1.json",
+  "name": "nasajobs-test",
+  "server": {
+    "dir": "dist/server",
+    "entry": "index.cjs"
+  },
+  "scripts": {
+    "build": "npm run build",
+    "dev": "npm run build:watch"
+  },
+  "permissions": {
+    "reddit": {
+      "enable": true,
+      "scope": "moderator"
+    },
+    "http": {
+      "enable": true,
+      "domains": [
+        "data.usajobs.gov",
+        "discord.com"
+      ]
+    }
+  },
+  "scheduler": {
+    "tasks": {
+      "daily-job-fetch": {
+        "endpoint": "/internal/scheduler/daily-job-fetch",
+        "cron": "0 12 * * *"
+      }
+    }
+  },
+  "menu": {
+    "items": [
+      {
+        "label": "Fetch and Post NASA Jobs Now",
+        "endpoint": "/internal/menu/fetch-jobs-now",
+        "forUserType": "moderator",
+        "location": "subreddit"
+      }
+    ]
+  },
+  "settings": {
+    "global": {
+      "jobsEmail": {
+        "type": "string",
+        "label": "USAJobs API Email",
+        "isSecret": true
+      },
+      "jobsKey": {
+        "type": "string",
+        "label": "USAJobs API Key",
+        "isSecret": true
+      },
+      "discordWebhook": {
+        "type": "string",
+        "label": "Discord Webhook URL",
+        "isSecret": true
+      }
+    }
+  }
+}
