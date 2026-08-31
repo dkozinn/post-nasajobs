@@ -5,11 +5,18 @@ import { notify } from './notify.js';
 export async function runJobFlow(
   subredditName: string
 ): Promise<{ success: boolean; posted: boolean; message: string }> {
-  const [jobsEmail, jobsKey, discordWebhook] = await Promise.all([
+  const [jobsEmail, jobsKey, discordWebhook, postFlair] = await Promise.all([
     settings.get<string>('jobsEmail'),
     settings.get<string>('jobsKey'),
     settings.get<string>('discordWebhook'),
+    settings.get<string>('postFlair'),
   ]);
+
+  function getLogTimestamp(): string {
+    return new Date().toISOString().replace(/\.\d{3}Z$/, 'Z');
+}
+
+// Example: "2026-08-30T18:07:22Z"
 
   if (!jobsEmail || !jobsKey) {
     const errorMsg = 'App settings are not fully configured (jobsEmail or jobsKey is missing).';
@@ -31,13 +38,18 @@ export async function runJobFlow(
      
       const title = `New usajobs.gov NASA postings as of ${weekday} ${month} ${day}, ${year}`;
 
+      console.log(`[${getLogTimestamp()}] Job flow started for r/${subredditName}`);
       console.log(`Submitting new post to r/${subredditName}: "${title}"`);
       await reddit.submitPost({
         subredditName,
         title,
         text: results,
-        flairId: 'c753e058-9ac6-11ee-a880-9a87da1d6157',
-        flairText: 'usajobs.gov',
+        // flairId: 'c753e058-9ac6-11ee-a880-9a87da1d6157',
+        // flairId: '3d65724c-a33f-11f1-ba83-a2bb57715c52',
+      ...(postFlair !== undefined && { flairId: postFlair }),
+      ...(postFlair !== undefined && { flairText: 'usajobs.gov' }),
+        // flairId: postFlair,
+        // flairText: 'usajobs.gov',
         sendreplies: false,
         runAs: 'APP',
       });

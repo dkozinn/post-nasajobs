@@ -36,7 +36,7 @@ export async function fetchJobs(email: string, key: string): Promise<string> {
     'User-Agent': email,
     'Authorization-Key': key,
   };
-  const url = 'https://data.usajobs.gov/api/search?Organization=NN&DatePosted=1&Fields=Min&ResultsPerPage=50';
+  const url = 'https://data.usajobs.gov/api/search?Organization=NN&DatePosted=2&Fields=Min&ResultsPerPage=50';
   const resp = await fetch(url, {
     method: 'GET',
     headers,
