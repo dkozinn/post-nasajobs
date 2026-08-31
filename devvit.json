@@ -33,7 +33,7 @@
   "menu": {
     "items": [
       {
-        "label": "Fetch and Post NASA Jobs Now",
+        "label": "Fetch and Post NASA jobs now",
         "endpoint": "/internal/menu/fetch-jobs-now",
         "forUserType": "moderator",
         "location": "subreddit"
