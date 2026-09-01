@@ -12,7 +12,7 @@ export async function runJobFlow(
     settings.get<string>('postFlairID'),
   ]);
 
-  console.log(await settings.getAll())
+  // console.log(await settings.getAll())
 
   function getLogTimestamp(): string {
     return new Date().toISOString().replace(/\.\d{3}Z$/, 'Z');
@@ -41,7 +41,6 @@ export async function runJobFlow(
       const title = `New usajobs.gov NASA postings as of ${weekday} ${month} ${day}, ${year}`;
 
       console.log(`[${getLogTimestamp()}] Job flow started for r/${subredditName}`);
-      console.log(`postFlairID="${postFlairID}"`)
       console.log(`Submitting new post to r/${subredditName}: "${title}"`);
       await reddit.submitPost({
         subredditName,
