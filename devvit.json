@@ -59,8 +59,8 @@
       }
     },
     "subreddit": {
-       "postFlair": {
-         "label": "Flair to tag posts",
+       "postFlairID": {
+         "label": "Flair ID to tag posts",
          "type": "string",
          "helpText": "Flair ID of flair to use to tag posts from this app."
             }
