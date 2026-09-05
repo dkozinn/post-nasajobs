@@ -10,7 +10,7 @@ This application does not collect, store, or process data about individuals.
 
 ## Settings
 
-The mod must provide a flair ID which will be attached to the daily post.
+The mod may provide a flair ID which will be attached to the daily post. If nothing is provided, no flair will be attached to the post.
 
 ## Fetch Domains
 
