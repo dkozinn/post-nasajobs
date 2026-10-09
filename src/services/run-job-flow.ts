@@ -32,6 +32,7 @@ export async function runJobFlow(
     const results = await fetchJobs(jobsEmail, jobsKey);
 
     if (results && results.trim().length > 0) {
+      const body = results + "\n\n#### Note: This unofficial service is not operated, sponsored, approved, or endorsed by OPM."
       const today = new Date();
       const weekday = today.toLocaleDateString('en-US', { weekday: 'long' });
       const month = today.toLocaleDateString('en-US', { month: 'long' });
@@ -45,7 +46,7 @@ export async function runJobFlow(
       await reddit.submitPost({
         subredditName,
         title,
-        text: results,
+        text: body,
         ...(postFlairID && { flairId: postFlairID, flairText: 'usajobs.gov' }),
         sendreplies: false,
         runAs: 'APP',
